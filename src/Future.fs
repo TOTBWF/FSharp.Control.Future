@@ -1,4 +1,4 @@
-namespace Future
+namespace FSharp.Control
 
 open System
 open System.Collections.Generic
@@ -51,15 +51,12 @@ module Future =
     let isAsync (future: Future<'T>) = match future with | AsyncIO _ -> true | _ -> false
         
     let get (future: Future<'T>) = 
-        let body = function
-            | Success s -> s
-            | FailedWith e -> raise e
         match future with
-            | SyncIO v -> body v
+            | SyncIO v -> Try.get v
             | AsyncIO a -> 
                 async {
                     let! r = a
-                    return body r
+                    return Try.get r
                 } |> Async.RunSynchronously
 
     let inline wrap (v: 'T) = SyncIO(Success(v))

@@ -2,7 +2,7 @@ module Tests
 
 open System
 open Expecto
-open Future
+open FSharp.Control
 
 let basicTests =
   testList "Basic Future Tests" [
