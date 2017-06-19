@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FSharp.NET.Sdk" Version="1.0.*" PrivateAssets="All" />
     <Reference Include="..\src\bin\Release\net45\Future.dll"/>
   </ItemGroup>
 

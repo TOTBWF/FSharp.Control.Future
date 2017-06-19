@@ -21,10 +21,6 @@ Target "CopyBinaries" (fun _ ->
     |> Seq.iter(fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
 )
 
-Target "RestorePackages" (fun _ ->
-    solutionFile
-    |> RestoreMSSolutionPackages id
-)
 
 Target "Build" (fun _ ->
     !! solutionFile
@@ -39,7 +35,6 @@ Target "RunTests" (fun _ ->
 Target "All" DoNothing
 
 "Clean"
-    ==> "RestorePackages"
     ==> "Build"
     ==> "CopyBinaries"
     ==> "RunTests"
