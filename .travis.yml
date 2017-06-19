@@ -4,4 +4,4 @@ sudo: false  # use the new container-based Travis infrastructure
 
 before_script: chmod +x build.sh
  
-script: msbuild /t:restore && ./build.sh All
+script: ./build.sh All

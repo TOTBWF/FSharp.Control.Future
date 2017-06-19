@@ -67,6 +67,9 @@ then
 fi
 
 run $PAKET_EXE restore
+echo "Restoring targets, because for some reason it refuses to build unless you do this"
+echo "Go figure."
+run msbuild /t:restore
 
 [ ! -e build.fsx ] && run $PAKET_EXE update
 [ ! -e build.fsx ] && run $FAKE_EXE init.fsx
