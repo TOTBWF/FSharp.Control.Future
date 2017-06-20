@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard1.6</TargetFrameworks>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AssemblyName>FSharp.Control.Future</AssemblyName>
+    <OutDir>./bin/$(Configuration)/$(TargetFramework)</OutDir>
   </PropertyGroup>
 
   <ItemGroup>

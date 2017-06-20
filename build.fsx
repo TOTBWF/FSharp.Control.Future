@@ -3,8 +3,10 @@
 open System
 open Fake
 open Fake.Testing
+open Fake.ReleaseNotesHelper
 
-let project = "Future.fs"
+
+let project = "FSharp.Control.Future"
 let summary = "A small library for better async handling"
 let description = "Async handling with immediate values and failure states"
 let authors = [ "Reed Mullanix";"Bazinga Technologies Inc" ]
@@ -12,6 +14,7 @@ let copyright = "Copyright (c) 2017 Bazinga Technologies Inc"
 let tags = "FSharp Async Future"
 let solutionFile = "Future.sln"
 let testExecutables = "test/bin/Release/**/*Tests*.exe"
+let release = LoadReleaseNotes "RELEASE_NOTES.md"
 
 Target "Clean" (fun _ -> CleanDir "bin")
 
@@ -30,6 +33,17 @@ Target "Build" (fun _ ->
 Target "RunTests" (fun _ ->
     !! testExecutables
     |> Expecto.Expecto id
+)
+
+Target "Package" (fun _ ->
+    CleanDir <| sprintf "nuget/%s" project 
+    Paket.Pack(fun p ->
+        { p with 
+            Version = release.NugetVersion
+            OutputPath = sprintf "nuget/%s" project
+            TemplateFile = "src/paket.template"
+        })
+
 )
 
 Target "All" DoNothing

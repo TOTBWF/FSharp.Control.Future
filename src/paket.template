@@ -1,0 +1,21 @@
+type project
+title
+    ##ProjectName##
+owners
+    Bazinga Technologies Inc
+authors 
+    Bazinga Technologies Inc
+projectUrl
+    https://github.com/TOTBWF/FSharp.Control.Future 
+licenseUrl
+    http://github.com/bazingatechnologies/FSharp.Data.GraphQL/blob/master/LICENSE.md
+requireLicenseAcceptance
+    false
+copyright
+    Copyright 2017
+tags
+    FSharp Asynchronous
+summary
+    Concurrent programming library that helps handle exceptions
+description
+    Concurrent programming library that helps handle exceptions
