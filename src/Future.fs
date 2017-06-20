@@ -56,6 +56,11 @@ module Try =
         match t with
         | Success s -> Choice1Of2 s
         | FailedWith e -> Choice2Of2 e
+    
+    let ofChoice (c: Choice<'T, exn>) =
+        match c with
+        | Choice1Of2 v -> Success v
+        | Choice2Of2 ex -> FailedWith ex
 
     // Applies the function fs if t is a Success, or, conversely, applies the function fe if t is a FailedWith
     let transform (fs: 'T  -> Try<'U>) (fe: exn -> Try<'U>) (t: Try<'T>) =
@@ -127,8 +132,11 @@ module Future =
     /// Wraps a synchronous value in a Future
     let inline wrap (v: 'T) = SyncIO(Success(v))
 
+    /// Wraps a synchronous try in a future
+    let inline wrapTry (v: Try<'T>) = SyncIO(v)
     /// Wraps an exception in a Future
     let failed (e: exn) = SyncIO(FailedWith(e))
+
 
     /// Transforms a task into an asynchronous Future
     let ofTask t = 
@@ -143,6 +151,11 @@ module Future =
             let! r = a
             return Try.wrap r
         })
+    
+    let ofAsyncTry (a: Async<Try<'T>>) =
+        AsyncIO(a)
+
+    let ofBeginEnd ()
 
     /// Transforms a Future into an asynchronous value
     let toAsync = function
